@@ -1,5 +1,7 @@
 import 'package:flutter_messenger/datasources/auth_datasource.dart';
+import 'package:injectable/injectable.dart';
 
+@injectable
 class SignUpUseCase {
   SignUpUseCase();
 

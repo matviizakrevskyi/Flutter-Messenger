@@ -28,6 +28,10 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  flutter_bloc: 8.1.4
+  injector: 3.0.0
+  get_it: 7.6.7
+  injectable: 2.3.2
   flutter:
     sdk: flutter
 

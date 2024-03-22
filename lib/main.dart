@@ -6,6 +6,7 @@ import 'package:flutter_messenger/screens/auth/auth_cubit.dart';
 import 'package:flutter_messenger/screens/auth/auth_screen.dart';
 import 'package:flutter_messenger/screens/home/home_cubit.dart';
 import 'package:flutter_messenger/screens/home/home_screen.dart';
+import 'package:flutter_messenger/styling/styling.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
@@ -24,10 +25,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
+      theme: ThemeData(colorScheme: CustomColors.colorSheme),
       navigatorKey: navigatorKey,
       routes: {
         '/': (context) => BlocProvider<AuthCubit>(

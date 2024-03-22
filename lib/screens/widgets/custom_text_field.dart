@@ -30,10 +30,10 @@ class _CustomTextFieldState extends State<CustomTextField> {
         },
         child: Container(
           decoration: BoxDecoration(
-            color: _isFocused ? Colors.blue.withOpacity(0.1) : Colors.grey[200],
+            color: Colors.grey[200],
             borderRadius: BorderRadius.circular(10.0),
             border: _isFocused
-                ? Border.all(color: Colors.blue, width: 2.0)
+                ? Border.all(color: CustomColors.textPrimaryColor, width: 2.0)
                 : Border.all(color: Colors.transparent),
           ),
           child: TextField(

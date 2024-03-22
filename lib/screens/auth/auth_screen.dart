@@ -13,102 +13,107 @@ class AuthScreen extends StatelessWidget {
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
-            title: Column(
-              children: [
-                const Center(
-                  child: Text(
-                    "Messenger",
-                    style: CustomTextStyles.h2,
-                  ),
-                ),
-                Divider(
-                  thickness: 1.5,
-                  color: Colors.grey.withOpacity(0.3),
-                ),
-              ],
+            backgroundColor: CustomColors.main,
+            title: const Center(
+              child: Text(
+                "Messenger",
+                style: CustomTextStyles.h2,
+              ),
             ),
           ),
-          body: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.15,
-                ),
-                Text(
-                  state.authStatus.stringValue,
-                  style: CustomTextStyles.h1,
-                ),
-                const SizedBox(
-                  height: 32,
-                ),
-                if (state.authStatus == AuthStatus.signUp)
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 16),
-                    child: CustomTextField(
-                      hintText: "Name",
-                      controller: cubit.nameController,
+          body: AnimatedOpacity(
+            opacity: state.animationOpacity,
+            duration: Duration(milliseconds: state.animationOpacity == 0 ? 0 : 800),
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Divider(
+                    thickness: 1.5,
+                    color: Colors.grey.withOpacity(0.3),
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height *
+                        (state.authStatus == AuthStatus.signIn ? 0.15 : 0.07),
+                  ),
+                  Text(
+                    state.authStatus.stringValue,
+                    style: CustomTextStyles.h1,
+                  ),
+                  const SizedBox(
+                    height: 32,
+                  ),
+                  if (state.authStatus == AuthStatus.signUp)
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 16),
+                      child: CustomTextField(
+                        hintText: "Name",
+                        controller: cubit.nameController,
+                      ),
+                    ),
+                  CustomTextField(
+                    hintText: "Email",
+                    controller: cubit.emailController,
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  CustomTextField(
+                    hintText: "Password",
+                    controller: cubit.passwordController,
+                  ),
+                  if (state.authStatus == AuthStatus.signUp)
+                    Padding(
+                      padding: const EdgeInsets.only(top: 8),
+                      child: CustomTextField(
+                        hintText: "Repeat password",
+                        controller: cubit.repeatedPasswordController,
+                      ),
+                    ),
+                  if (state.errorMessege.isNotEmpty)
+                    Padding(
+                      padding: const EdgeInsets.only(top: 8),
+                      child: Text(
+                        state.errorMessege,
+                        style: CustomTextStyles.errorMessege,
+                      ),
+                    ),
+                  const SizedBox(
+                    height: 32,
+                  ),
+                  Ink(
+                    width: 260,
+                    height: 40,
+                    decoration: const BoxDecoration(
+                        color: CustomColors.textPrimaryColor,
+                        borderRadius: const BorderRadius.all(Radius.circular(20))),
+                    child: InkWell(
+                      customBorder: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                      onTap: () {
+                        cubit.onNextButton();
+                      },
+                      child: Center(
+                          child: Text(
+                        state.authStatus.stringValueForAuthButton,
+                        style: CustomTextStyles.mainWhite,
+                      )),
                     ),
                   ),
-                CustomTextField(
-                  hintText: "Email",
-                  controller: cubit.emailController,
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                CustomTextField(
-                  hintText: "Password",
-                  controller: cubit.passwordController,
-                ),
-                if (state.authStatus == AuthStatus.signUp)
-                  Padding(
-                    padding: const EdgeInsets.only(top: 8),
-                    child: CustomTextField(
-                      hintText: "Repeat password",
-                      controller: cubit.repeatedPasswordController,
-                    ),
+                  const SizedBox(
+                    height: 4,
                   ),
-                if (state.errorMessege.isNotEmpty)
-                  Padding(
-                    padding: const EdgeInsets.only(top: 8),
-                    child: Text(
-                      state.errorMessege,
-                      style: CustomTextStyles.errorMessege,
-                    ),
-                  ),
-                const SizedBox(
-                  height: 32,
-                ),
-                Ink(
-                  width: 260,
-                  height: 40,
-                  decoration: BoxDecoration(
-                      color: Colors.blue.withOpacity(0.5),
-                      borderRadius: const BorderRadius.all(Radius.circular(20))),
-                  child: InkWell(
-                    customBorder: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                    onTap: () {
-                      cubit.onNextButton();
-                    },
-                    child: Center(
-                        child: Text(
-                      state.authStatus.stringValueForAuthButton,
-                      style: CustomTextStyles.main,
-                    )),
-                  ),
-                ),
-                const SizedBox(
-                  height: 4,
-                ),
-                TextButton(
-                    onPressed: () => cubit.changeAuthStatus(),
-                    child: Text(state.authStatus.stringValueForChangeButton)),
-                const SizedBox(
-                  height: 80,
-                )
-              ],
+                  TextButton(
+                      onPressed: () => cubit.changeAuthStatus(),
+                      child: Text(
+                        state.authStatus.stringValueForChangeButton,
+                        style: CustomTextStyles.main,
+                      )),
+                  const SizedBox(
+                    height: 80,
+                  )
+                ],
+              ),
             ),
           ),
         );

@@ -29,6 +29,13 @@ abstract class CustomTextStyles {
       letterSpacing: 0,
       color: CustomColors.textPrimaryColor);
 
+  static const mainWhite = TextStyle(
+      fontFamily: 'Raleway',
+      fontSize: 16,
+      fontWeight: FontWeight.w500,
+      letterSpacing: 0,
+      color: CustomColors.textWhiteColor);
+
   static const errorMessege = TextStyle(
       fontFamily: 'Raleway',
       fontSize: 14,
@@ -38,6 +45,11 @@ abstract class CustomTextStyles {
 }
 
 abstract class CustomColors {
+  static const main = Color(0xFFF9F9F9);
+
+  static const colorSheme = ColorScheme.light(background: main);
+
   static const textPrimaryColor = Color(0xFF211814);
+  static const textWhiteColor = Colors.white;
   static const placeholder = Color(0xFFBFBFBF);
 }

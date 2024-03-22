@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,13 +23,11 @@ class AuthCubit extends Cubit<AuthState> {
   TextEditingController nameController = TextEditingController();
 
   AuthCubit(this._signUpUseCase, this._signInUseCase)
-      : super(AuthState(false, AuthStatus.signIn, ""));
+      : super(AuthState(false, AuthStatus.signIn, "", 0)) {
+    emit(state.copyWith(animationOpacity: 1));
+  }
 
   onNextButton() async {
-    if (nameController.text.isEmpty) {
-      emit(state.copyWith(errorMessege: "Enter your name"));
-      return;
-    }
     if (emailController.text.isEmpty || !emailController.text.isEmail) {
       emit(state.copyWith(errorMessege: "The email or password is not correct"));
       return;
@@ -36,6 +36,10 @@ class AuthCubit extends Cubit<AuthState> {
     try {
       switch (state.authStatus) {
         case AuthStatus.signUp:
+          if (nameController.text.isEmpty) {
+            emit(state.copyWith(errorMessege: "Enter your name"));
+            return;
+          }
           if (passwordController.text != repeatedPasswordController.text) {
             emit(state.copyWith(errorMessege: "Passwords do not match"));
             return;
@@ -52,10 +56,15 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  changeAuthStatus() {
-    emit(state.copyWith(
-        authStatus: state.authStatus == AuthStatus.signIn ? AuthStatus.signUp : AuthStatus.signIn,
-        errorMessege: ""));
+  changeAuthStatus() async {
+    emit(state.copyWith(animationOpacity: 0));
+
+    Timer(const Duration(milliseconds: 10), () {
+      emit(state.copyWith(
+          authStatus: state.authStatus == AuthStatus.signIn ? AuthStatus.signUp : AuthStatus.signIn,
+          errorMessege: "",
+          animationOpacity: 1));
+    });
   }
 
   //Todo remove later

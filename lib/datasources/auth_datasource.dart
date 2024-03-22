@@ -27,14 +27,13 @@ class AuthDatasource {
 
   Future<void> signIn(String email, String password) async {
     try {
-      await signOut();
       await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
     } catch (e) {
       throw Exception('Error at SignIn: $e');
     }
   }
 
-  Future<void> signOut() async {
+  Future<void> logOut() async {
     await FirebaseAuth.instance.signOut();
   }
 }

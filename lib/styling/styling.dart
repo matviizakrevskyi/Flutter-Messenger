@@ -15,6 +15,13 @@ abstract class CustomTextStyles {
       letterSpacing: 0,
       color: CustomColors.textPrimaryColor);
 
+  static const h4 = TextStyle(
+      fontFamily: 'Raleway',
+      fontSize: 18,
+      fontWeight: FontWeight.w500,
+      letterSpacing: 0,
+      color: CustomColors.textPrimaryColor);
+
   static const placeholder = TextStyle(
       fontFamily: 'Raleway',
       fontSize: 14,
@@ -39,6 +46,13 @@ abstract class CustomTextStyles {
   static const errorMessege = TextStyle(
       fontFamily: 'Raleway',
       fontSize: 14,
+      fontWeight: FontWeight.w500,
+      letterSpacing: 0,
+      color: Colors.red);
+
+  static const errorButton = TextStyle(
+      fontFamily: 'Raleway',
+      fontSize: 16,
       fontWeight: FontWeight.w500,
       letterSpacing: 0,
       color: Colors.red);

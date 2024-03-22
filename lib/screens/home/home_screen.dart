@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_messenger/screens/home/home_cubit.dart';
 import 'package:flutter_messenger/styling/styling.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final cubit = context.read<HomeCubit>();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: CustomColors.main,
         title: _AppBar(
+          onLogOut: () => cubit.logOut(),
           onSearch: () {},
           title: 'Chats',
         ),
@@ -18,10 +22,10 @@ class HomeScreen extends StatelessWidget {
             thickness: 1.5,
             color: Colors.grey.withOpacity(0.3),
           ),
-          SizedBox(
+          const SizedBox(
             height: 100,
           ),
-          Text(
+          const Text(
             "Home Screen",
             style: CustomTextStyles.h1,
           )
@@ -34,8 +38,9 @@ class HomeScreen extends StatelessWidget {
 class _AppBar extends StatelessWidget {
   final String title;
   final VoidCallback onSearch;
+  final VoidCallback onLogOut;
 
-  _AppBar({required this.title, required this.onSearch});
+  _AppBar({required this.title, required this.onSearch, required this.onLogOut});
 
   @override
   Widget build(BuildContext context) {
@@ -44,12 +49,22 @@ class _AppBar extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const SizedBox(
-            width: 44,
-          ),
-          Text(
-            title,
-            style: CustomTextStyles.main,
+          TextButton(
+              onPressed: onLogOut,
+              child: const Text(
+                "Log Out",
+                style: CustomTextStyles.errorButton,
+              )),
+          Row(
+            children: [
+              Text(
+                title,
+                style: CustomTextStyles.h4,
+              ),
+              const SizedBox(
+                width: 40,
+              )
+            ],
           ),
           Ink(
             width: 44,
@@ -61,7 +76,7 @@ class _AppBar extends StatelessWidget {
             child: InkWell(
               customBorder: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
               onTap: onSearch,
-              child: Center(child: Icon(Icons.search)),
+              child: const Center(child: Icon(Icons.search)),
             ),
           ),
         ],

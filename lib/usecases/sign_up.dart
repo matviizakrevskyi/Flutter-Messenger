@@ -5,8 +5,8 @@ import 'package:injectable/injectable.dart';
 class SignUpUseCase {
   SignUpUseCase();
 
-  Future<void> execute(String email, String password) async {
+  Future<void> execute(String email, String password, String name) async {
     AuthDatasource authDatasource = AuthDatasource();
-    await authDatasource.signUp(email, password);
+    await authDatasource.signUp(email, password, name);
   }
 }

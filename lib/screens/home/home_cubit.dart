@@ -10,4 +10,8 @@ class HomeCubit extends Cubit<HomeState> {
   TextEditingController passwordController = TextEditingController();
 
   HomeCubit() : super(HomeState(false));
+
+  onButton() {
+    
+  }
 }

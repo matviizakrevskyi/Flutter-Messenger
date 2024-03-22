@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_messenger/styling/styling.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -10,7 +11,10 @@ class HomeScreen extends StatelessWidget {
           SizedBox(
             height: 100,
           ),
-          Text("Home Screen")
+          Text(
+            "Home Screen",
+            style: CustomTextStyles.h1,
+          )
         ],
       )),
     );

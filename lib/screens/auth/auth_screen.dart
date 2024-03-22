@@ -43,6 +43,14 @@ class AuthScreen extends StatelessWidget {
                 const SizedBox(
                   height: 32,
                 ),
+                if (state.authStatus == AuthStatus.signUp)
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 16),
+                    child: CustomTextField(
+                      hintText: "Name",
+                      controller: cubit.nameController,
+                    ),
+                  ),
                 CustomTextField(
                   hintText: "Email",
                   controller: cubit.emailController,

@@ -3,7 +3,7 @@ import 'package:flutter_messenger/domain/user.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-@singleton
+@lazySingleton
 class SharedPreferencesDatasource {
   final SharedPreferences _prefs;
 
@@ -25,5 +25,9 @@ class SharedPreferencesDatasource {
     } else {
       return null;
     }
+  }
+
+  clear() {
+    _prefs.clear();
   }
 }

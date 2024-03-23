@@ -11,7 +11,7 @@ class AuthDatasource {
 
   AuthDatasource();
 
-  Future<void> signUp(String email, String password, String name) async {
+  Future<String?> signUp(String email, String password, String name) async {
     try {
       final user = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
@@ -20,14 +20,19 @@ class AuthDatasource {
           .child("users")
           .child(user.user?.uid ?? '')
           .set({"email": user.user?.email, "name": name});
+
+      return user.user?.uid;
     } catch (e) {
       throw Exception('Error at registration: $e');
     }
   }
 
-  Future<void> signIn(String email, String password) async {
+  Future<String?> signIn(String email, String password) async {
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
+      final user =
+          await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
+
+      return user.user?.uid;
     } catch (e) {
       throw Exception('Error at SignIn: $e');
     }
@@ -35,5 +40,14 @@ class AuthDatasource {
 
   Future<void> logOut() async {
     await FirebaseAuth.instance.signOut();
+  }
+
+  Future<String> getNameOfUser(String uid) async {
+    try {
+      final userData = await _database.child('users/$uid').get();
+      return (userData.value as Map<dynamic, dynamic>)['name'];
+    } catch (e) {
+      throw Exception('Error at getNameOfUser: $e');
+    }
   }
 }

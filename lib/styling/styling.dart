@@ -29,10 +29,31 @@ abstract class CustomTextStyles {
       letterSpacing: 0,
       color: CustomColors.textPrimaryColor);
 
+  // static const h5 = TextStyle(
+  //     fontFamily: 'Raleway',
+  //     fontSize: 18,
+  //     fontWeight: FontWeight.w500,
+  //     letterSpacing: 0,
+  //     color: CustomColors.textPrimaryColor);
+
   static const main = TextStyle(
       fontFamily: 'Raleway',
       fontSize: 16,
       fontWeight: FontWeight.w500,
+      letterSpacing: 0,
+      color: CustomColors.textPrimaryColor);
+
+  static const main2 = TextStyle(
+      fontFamily: 'Raleway',
+      fontSize: 15,
+      fontWeight: FontWeight.w500,
+      letterSpacing: 0,
+      color: CustomColors.textPrimaryColor);
+
+  static const textSecondary = TextStyle(
+      fontFamily: 'Raleway',
+      fontSize: 14,
+      fontWeight: FontWeight.w400,
       letterSpacing: 0,
       color: CustomColors.textPrimaryColor);
 

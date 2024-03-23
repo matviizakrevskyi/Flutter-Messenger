@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_messenger/domain/str_email_ext.dart';
+import 'package:flutter_messenger/domain/extentions/str_email_ext.dart';
 import 'package:flutter_messenger/main.dart';
 import 'package:flutter_messenger/screens/auth/auth_enum.dart';
 import 'package:flutter_messenger/usecases/check_auth_status.dart';

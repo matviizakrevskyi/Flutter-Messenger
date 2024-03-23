@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_messenger/screens/home/home_cubit.dart';
+import 'package:flutter_messenger/screens/widgets/chat_preview_widget.dart';
 import 'package:flutter_messenger/styling/styling.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -22,13 +23,34 @@ class HomeScreen extends StatelessWidget {
             thickness: 1.5,
             color: Colors.grey.withOpacity(0.3),
           ),
+          ChatPreviewWidget(
+            userName: 'Matvii',
+            lastMessage: 'Hello! How are you?',
+            lastMessageTime: DateTime.now(),
+            onTap: () {},
+          ),
+          ChatPreviewWidget(
+            userName: 'Tymofii',
+            lastMessage: 'Hi! Sho ty golowa?',
+            lastMessageTime: DateTime.now(),
+            onTap: () {},
+          ),
+          ChatPreviewWidget(
+            userName: 'Nikita Zemlianoy Predator Apex season 25',
+            lastMessage: 'Go w APEX Legends?',
+            lastMessageTime: DateTime.now(),
+            onTap: () {},
+          ),
+          ChatPreviewWidget(
+            userName: 'Sanya',
+            lastMessage:
+                'Hello! I am going to the gym, do you want go with me? ajhasdjadjaskdasjdadsjasd',
+            lastMessageTime: DateTime.now(),
+            onTap: () {},
+          ),
           const SizedBox(
             height: 100,
           ),
-          const Text(
-            "Home Screen",
-            style: CustomTextStyles.h1,
-          )
         ],
       ),
     );

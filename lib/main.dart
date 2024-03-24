@@ -6,6 +6,8 @@ import 'package:flutter_messenger/screens/auth/auth_cubit.dart';
 import 'package:flutter_messenger/screens/auth/auth_screen.dart';
 import 'package:flutter_messenger/screens/home/home_cubit.dart';
 import 'package:flutter_messenger/screens/home/home_screen.dart';
+import 'package:flutter_messenger/screens/search/search_cubit.dart';
+import 'package:flutter_messenger/screens/search/search_screen.dart';
 import 'package:flutter_messenger/styling/styling.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -20,7 +22,6 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -35,6 +36,10 @@ class MyApp extends StatelessWidget {
         '/home': (context) => BlocProvider<HomeCubit>(
               create: (BuildContext context) => getIt.get(),
               child: HomeScreen(),
+            ),
+        '/search': (context) => BlocProvider<SearchCubit>(
+              create: (BuildContext context) => getIt.get(),
+              child: SearchScreen(),
             ),
       },
     );

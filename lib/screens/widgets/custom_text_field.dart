@@ -41,7 +41,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
             decoration: InputDecoration(
               hintStyle: CustomTextStyles.placeholder,
               hintText: widget.hintText,
-              contentPadding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+              contentPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
               border: InputBorder.none,
             ),
           ),

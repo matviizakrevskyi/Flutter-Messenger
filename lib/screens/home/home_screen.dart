@@ -13,7 +13,7 @@ class HomeScreen extends StatelessWidget {
         backgroundColor: CustomColors.main,
         title: _AppBar(
           onLogOut: () => cubit.logOut(),
-          onSearch: () {},
+          onSearch: () => cubit.onSearchButton(),
           title: 'Chats',
         ),
       ),

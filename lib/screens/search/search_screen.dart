@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_messenger/screens/search/search_cubit.dart';
 import 'package:flutter_messenger/screens/widgets/custom_text_field.dart';
+import 'package:flutter_messenger/screens/widgets/search_user_item.dart';
 import 'package:flutter_messenger/styling/styling.dart';
 
 class SearchScreen extends StatelessWidget {
@@ -73,11 +74,11 @@ class SearchScreen extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(horizontal: 16),
                             child: Column(
                               children: [
-                                Text("${item.name} ${item.email}"),
-                                Divider(
-                                  thickness: 1.5,
-                                  color: Colors.grey.withOpacity(0.3),
-                                ),
+                                SearchUserItem(
+                                  userName: item.name,
+                                  userEmail: item.email,
+                                  onTap: () => cubit.onItem(item.id),
+                                )
                               ],
                             ),
                           );

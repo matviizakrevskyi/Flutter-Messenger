@@ -24,6 +24,8 @@ class SearchCubit extends Cubit<SearchState> {
     }
   }
 
+  onItem(String id) {}
+
   onBackButton() {
     navigatorKey.currentState?.pop();
   }

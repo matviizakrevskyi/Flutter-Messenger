@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_messenger/di/injection.dart';
 import 'package:flutter_messenger/screens/auth/auth_cubit.dart';
 import 'package:flutter_messenger/screens/auth/auth_screen.dart';
+import 'package:flutter_messenger/screens/chat/chat_cubit.dart';
+import 'package:flutter_messenger/screens/chat/chat_screen.dart';
 import 'package:flutter_messenger/screens/home/home_cubit.dart';
 import 'package:flutter_messenger/screens/home/home_screen.dart';
 import 'package:flutter_messenger/screens/search/search_cubit.dart';
@@ -40,6 +42,10 @@ class MyApp extends StatelessWidget {
         '/search': (context) => BlocProvider<SearchCubit>(
               create: (BuildContext context) => getIt.get(),
               child: SearchScreen(),
+            ),
+        '/chat': (context) => BlocProvider<ChatCubit>(
+              create: (BuildContext context) => getIt.get(),
+              child: ChatScreen(),
             ),
       },
     );

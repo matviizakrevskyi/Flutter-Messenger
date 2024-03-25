@@ -67,20 +67,14 @@ class SearchScreen extends StatelessWidget {
                 if (state.users.isNotEmpty)
                   Expanded(
                     child: ListView.builder(
+                        padding: EdgeInsets.only(top: 8),
                         itemCount: state.users.length,
                         itemBuilder: (context, index) {
                           final item = state.users[index];
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 16),
-                            child: Column(
-                              children: [
-                                SearchUserItem(
-                                  userName: item.name,
-                                  userEmail: item.email,
-                                  onTap: () => cubit.onItem(item.id),
-                                )
-                              ],
-                            ),
+                          return SearchUserItem(
+                            userName: item.name,
+                            userEmail: item.email,
+                            onTap: () => cubit.onItem(item.id),
                           );
                         }),
                   )

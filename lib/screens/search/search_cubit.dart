@@ -24,7 +24,9 @@ class SearchCubit extends Cubit<SearchState> {
     }
   }
 
-  onItem(String id) {}
+  onItem(String id) {
+    navigatorKey.currentState?.pushReplacementNamed('/chat');
+  }
 
   onBackButton() {
     navigatorKey.currentState?.pop();

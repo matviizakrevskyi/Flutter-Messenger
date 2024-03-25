@@ -4,11 +4,13 @@ import 'package:flutter_messenger/styling/styling.dart';
 class CustomTextField extends StatefulWidget {
   final TextEditingController controller;
   final String hintText;
+  final double? customBorderRadius;
 
   const CustomTextField({
     Key? key,
     required this.controller,
     required this.hintText,
+    this.customBorderRadius,
   }) : super(key: key);
 
   @override
@@ -31,7 +33,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         child: Container(
           decoration: BoxDecoration(
             color: Colors.grey[200],
-            borderRadius: BorderRadius.circular(10.0),
+            borderRadius: BorderRadius.circular(widget.customBorderRadius ?? 10.0),
             border: _isFocused
                 ? Border.all(color: CustomColors.textPrimaryColor, width: 2.0)
                 : Border.all(color: Colors.transparent),

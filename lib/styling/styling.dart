@@ -50,12 +50,26 @@ abstract class CustomTextStyles {
       letterSpacing: 0,
       color: CustomColors.textPrimaryColor);
 
+  static const main3 = TextStyle(
+      fontFamily: 'Raleway',
+      fontSize: 15,
+      fontWeight: FontWeight.w400,
+      letterSpacing: 0,
+      color: CustomColors.textPrimaryColor);
+
   static const textSecondary = TextStyle(
       fontFamily: 'Raleway',
       fontSize: 14,
       fontWeight: FontWeight.w400,
       letterSpacing: 0,
       color: CustomColors.textPrimaryColor);
+
+  static const textSecondary2 = TextStyle(
+      fontFamily: 'Raleway',
+      fontSize: 12,
+      fontWeight: FontWeight.w400,
+      letterSpacing: 0,
+      color: CustomColors.placeholder);
 
   static const mainWhite = TextStyle(
       fontFamily: 'Raleway',

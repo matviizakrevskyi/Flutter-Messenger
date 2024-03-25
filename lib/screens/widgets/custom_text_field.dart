@@ -5,12 +5,14 @@ class CustomTextField extends StatefulWidget {
   final TextEditingController controller;
   final String hintText;
   final double? customBorderRadius;
+  final double? customHeight;
 
   const CustomTextField({
     Key? key,
     required this.controller,
     required this.hintText,
     this.customBorderRadius,
+    this.customHeight,
   }) : super(key: key);
 
   @override
@@ -31,6 +33,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
           });
         },
         child: Container(
+          height: widget.customHeight,
           decoration: BoxDecoration(
             color: Colors.grey[200],
             borderRadius: BorderRadius.circular(widget.customBorderRadius ?? 10.0),

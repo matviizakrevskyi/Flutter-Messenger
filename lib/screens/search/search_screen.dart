@@ -20,43 +20,22 @@ class SearchScreen extends StatelessWidget {
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(left: 16),
-                      child: Ink(
-                        height: 38,
-                        width: 38,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: const BorderRadius.all(Radius.circular(19)),
-                            border: Border.all(color: CustomColors.textPrimaryColor, width: 2)),
-                        child: InkWell(
-                          customBorder:
-                              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                          onTap: () => cubit.onBackButton(),
-                          child: const Center(child: Icon(Icons.arrow_back)),
-                        ),
-                      ),
+                      child: IconButton(
+                          onPressed: () => cubit.onBackButton(),
+                          icon: const Icon(Icons.arrow_back)),
                     ),
                     Expanded(
                       child: CustomTextField(
                         controller: cubit.searchController,
                         hintText: "Search",
+                        customHeight: 40,
+                        customBorderRadius: 22,
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(right: 16),
-                      child: Ink(
-                        height: 38,
-                        width: 38,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: const BorderRadius.all(Radius.circular(19)),
-                            border: Border.all(color: CustomColors.textPrimaryColor, width: 2)),
-                        child: InkWell(
-                          customBorder:
-                              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                          onTap: () => cubit.onSearchButton(),
-                          child: const Center(child: Icon(Icons.search)),
-                        ),
-                      ),
+                      child: IconButton(
+                          onPressed: () => cubit.onSearchButton(), icon: const Icon(Icons.search)),
                     ),
                   ],
                 ),
@@ -64,20 +43,26 @@ class SearchScreen extends StatelessWidget {
                   thickness: 1.5,
                   color: Colors.grey.withOpacity(0.3),
                 ),
-                if (state.users.isNotEmpty)
-                  Expanded(
-                    child: ListView.builder(
-                        padding: EdgeInsets.only(top: 8),
-                        itemCount: state.users.length,
-                        itemBuilder: (context, index) {
-                          final item = state.users[index];
-                          return SearchUserItem(
-                            userName: item.name,
-                            userEmail: item.email,
-                            onTap: () => cubit.onItem(item.id),
-                          );
-                        }),
-                  )
+                state.isLoading
+                    ? Padding(
+                        padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.3),
+                        child: const CircularProgressIndicator(
+                          color: CustomColors.textPrimaryColor,
+                        ),
+                      )
+                    : Expanded(
+                        child: ListView.builder(
+                            padding: EdgeInsets.only(top: 8),
+                            itemCount: state.users.length,
+                            itemBuilder: (context, index) {
+                              final item = state.users[index];
+                              return SearchUserItem(
+                                userName: item.name,
+                                userEmail: item.email,
+                                onTap: () => cubit.onItem(item.id),
+                              );
+                            }),
+                      )
               ],
             ),
           ),

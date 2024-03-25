@@ -13,6 +13,7 @@ class ChatScreen extends StatelessWidget {
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
+            backgroundColor: CustomColors.main,
             title: const Padding(
               padding: EdgeInsets.only(right: 50),
               child: Row(
@@ -27,6 +28,10 @@ class ChatScreen extends StatelessWidget {
             ),
           ),
           body: Column(children: [
+            Divider(
+              thickness: 1.5,
+              color: Colors.grey.withOpacity(0.3),
+            ),
             Expanded(
               child: ListView.builder(
                   reverse: true,

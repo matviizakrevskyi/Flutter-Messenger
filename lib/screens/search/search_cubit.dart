@@ -16,16 +16,15 @@ class SearchCubit extends Cubit<SearchState> {
   SearchCubit(this._searchUsersByEmailUseCase) : super(SearchState(false, []));
 
   onSearchButton() async {
-    emit(state.copyWith(isLoading: true));
-
     if (searchController.text.length > 1) {
+      emit(state.copyWith(isLoading: true));
       final users = await _searchUsersByEmailUseCase.execute(searchController.text);
       emit(state.copyWith(users: users, isLoading: false));
     }
   }
 
   onItem(String id) {
-    navigatorKey.currentState?.pushReplacementNamed('/chat');
+    navigatorKey.currentState?.pushReplacementNamed('/chat'); //Todo add argument(id of chat)
   }
 
   onBackButton() {

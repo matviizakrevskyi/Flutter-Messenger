@@ -10,7 +10,10 @@ part 'chat_state.dart';
 class ChatCubit extends Cubit<ChatState> {
   final TextEditingController textController = TextEditingController();
 
-  ChatCubit() : super(ChatState(false, []));
+  ChatCubit() : super(ChatState(false, [])) {
+    //Todo
+    //Get data of this chat
+  }
 
   onBackButton() {
     navigatorKey.currentState?.pop();

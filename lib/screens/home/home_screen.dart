@@ -8,52 +8,47 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<HomeCubit>();
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: CustomColors.main,
-        title: _AppBar(
-          onLogOut: () => cubit.logOut(),
-          onSearch: () => cubit.onSearchButton(),
-          title: 'Chats',
+    return BlocBuilder<HomeCubit, HomeState>(builder: (BuildContext context, state) {
+      return Scaffold(
+        appBar: AppBar(
+          backgroundColor: CustomColors.main,
+          title: _AppBar(
+            onLogOut: () => cubit.logOut(),
+            onSearch: () => cubit.onSearchButton(),
+            title: 'Chats',
+          ),
         ),
-      ),
-      body: Column(
-        children: [
-          Divider(
-            thickness: 1.5,
-            color: Colors.grey.withOpacity(0.3),
-          ),
-          ChatPreviewWidget(
-            userName: 'Matvii',
-            lastMessage: 'Hello! How are you?',
-            lastMessageTime: DateTime.now(),
-            onTap: () {},
-          ),
-          ChatPreviewWidget(
-            userName: 'Tymofii',
-            lastMessage: 'Hi! Sho ty golowa?',
-            lastMessageTime: DateTime.now(),
-            onTap: () {},
-          ),
-          ChatPreviewWidget(
-            userName: 'Nikita Zemlianoy Predator Apex season 25',
-            lastMessage: 'Go w APEX Legends?',
-            lastMessageTime: DateTime.now(),
-            onTap: () {},
-          ),
-          ChatPreviewWidget(
-            userName: 'Sanya',
-            lastMessage:
-                'Hello! I am going to the gym, do you want go with me? ajhasdjadjaskdasjdadsjasd',
-            lastMessageTime: DateTime.now(),
-            onTap: () {},
-          ),
-          const SizedBox(
-            height: 100,
-          ),
-        ],
-      ),
-    );
+        body: Column(
+          children: [
+            Divider(
+              thickness: 1.5,
+              color: Colors.grey.withOpacity(0.3),
+            ),
+            state.isLoading
+                ? Padding(
+                    padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.3),
+                    child: const CircularProgressIndicator(
+                      color: CustomColors.textPrimaryColor,
+                    ),
+                  )
+                : Expanded(
+                    child: ListView.builder(
+                        itemCount: state.chats.length,
+                        itemBuilder: (context, index) {
+                          final item = state.chats[index];
+                          return ChatPreviewWidget(
+                              userName: item.userData.name,
+                              lastMessage: item.lastMessage.text,
+                              lastMessageTime: item.lastMessage.time,
+                              onTap: () => cubit.onChat(item.id));
+                        })),
+            const SizedBox(
+              height: 100,
+            ),
+          ],
+        ),
+      );
+    });
   }
 }
 

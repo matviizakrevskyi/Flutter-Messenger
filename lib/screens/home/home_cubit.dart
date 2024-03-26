@@ -14,7 +14,7 @@ class HomeCubit extends Cubit<HomeState> {
 
   HomeCubit(this._logOutUseCase)
       : super(HomeState(false, [
-          Chat("", User("", "asdad@asda.com", "User"), Message("Hello!", "", DateTime.now()))
+          Chat("", User("", "asdad@asda.com", "User"), Message("", "Hello!", "", DateTime.now()))
         ])) {
     //Todo
     //get User chats

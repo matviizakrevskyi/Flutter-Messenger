@@ -15,7 +15,7 @@ class SharedPreferencesDatasource {
     _prefs.setString(userNameKey, user.name);
   }
 
-  User? getUserData() {
+  User? get userData {
     final id = _prefs.getString(userIdKey);
     final email = _prefs.getString(userEmailKey);
     final name = _prefs.getString(userNameKey);
@@ -25,6 +25,22 @@ class SharedPreferencesDatasource {
     } else {
       return null;
     }
+  }
+
+  saveAnotherUserId(String id) {
+    _prefs.setString(anotherUserIdKey, id);
+  }
+
+  String? get anotherUserId {
+    return _prefs.getString(anotherUserIdKey);
+  }
+
+  saveCurrentChatId(String id) {
+    _prefs.setString(currentChatIdKey, id);
+  }
+
+  String? get currentChatId {
+    return _prefs.getString(currentChatIdKey);
   }
 
   clear() {

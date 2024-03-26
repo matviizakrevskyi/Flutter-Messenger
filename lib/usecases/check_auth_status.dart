@@ -8,7 +8,7 @@ class CheckAuthStatusUseCase {
   CheckAuthStatusUseCase(this._prefsDataSource);
 
   bool execute() {
-    final user = _prefsDataSource.getUserData();
+    final user = _prefsDataSource.userData;
     return user != null;
   }
 }

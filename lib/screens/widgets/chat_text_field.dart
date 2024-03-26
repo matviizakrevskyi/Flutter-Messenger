@@ -65,7 +65,7 @@ class _ChatTextFieldState extends State<ChatTextField> {
                   border: Border.all(color: CustomColors.textPrimaryColor, width: 2)),
               child: InkWell(
                 customBorder: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                onTap: () {},
+                onTap: widget.onSend,
                 child: const Center(
                     child: Icon(
                   Icons.send,

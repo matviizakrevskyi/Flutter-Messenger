@@ -38,14 +38,15 @@ class ChatScreen extends StatelessWidget {
                   itemCount: state.items.length,
                   itemBuilder: (context, index) {
                     final item = state.items[index];
-                    return _MessageItem(item.text, item.userId == 'user1', item.time.toHMFormat);
+                    return _MessageItem(
+                        item.text, item.userId == cubit.user?.id, item.time.toHMFormat);
                   }),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 8),
               child: ChatTextField(
                 controller: cubit.textController,
-                onSend: () {},
+                onSend: () => cubit.onSendMessege(),
               ),
             )
           ]),

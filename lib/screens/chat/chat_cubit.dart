@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_messenger/domain/message.dart';
@@ -12,23 +14,22 @@ part 'chat_state.dart';
 
 @injectable
 class ChatCubit extends Cubit<ChatState> {
-  final GetCurrentChatDataUseCase _getCurrentChatDataUseCase;
   final GetUserDataUseCase _getUserDataUseCase;
   final SendMessageUseCase _sendMessageUseCase;
+  final GetCurrentChatDataStreamUseCase _getCurrentChatDataStreamUseCase;
 
+  late StreamSubscription _subscription;
   final TextEditingController textController = TextEditingController();
 
   User? user;
 
-  ChatCubit(this._getCurrentChatDataUseCase, this._getUserDataUseCase, this._sendMessageUseCase)
+  ChatCubit(
+      this._getUserDataUseCase, this._sendMessageUseCase, this._getCurrentChatDataStreamUseCase)
       : super(ChatState(false, [])) {
-    _init();
-  }
-
-  _init() async {
     user = _getUserDataUseCase.execute();
-    final chatData = await _getCurrentChatDataUseCase.execute();
-    emit(state.copyWith(items: chatData));
+    _subscription = _getCurrentChatDataStreamUseCase.execute().listen((data) {
+      emit(state.copyWith(items: data));
+    });
   }
 
   onSendMessege() async {
@@ -38,5 +39,11 @@ class ChatCubit extends Cubit<ChatState> {
 
   onBackButton() {
     navigatorKey.currentState?.pop();
+  }
+
+  @override
+  Future<void> close() {
+    _subscription.cancel();
+    return super.close();
   }
 }

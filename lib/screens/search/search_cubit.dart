@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_messenger/domain/user.dart';
 import 'package:flutter_messenger/main.dart';
-import 'package:flutter_messenger/usecases/save_another_user_id.dart';
+import 'package:flutter_messenger/usecases/get_current_chat_data.dart';
+import 'package:flutter_messenger/usecases/save_current_chat_id.dart';
 import 'package:flutter_messenger/usecases/search_users_by_email.dart';
 import 'package:injectable/injectable.dart';
 
@@ -11,11 +12,13 @@ part 'search_state.dart';
 @injectable
 class SearchCubit extends Cubit<SearchState> {
   final SearchUsersByEmailUseCase _searchUsersByEmailUseCase;
-  final SaveAnotherUserIdUseCase _saveAnotherUserIdUseCase;
+  final SaveCurrentChatIdUseCase _saveCurrentChatIdUseCase;
+  final GetCurrentChatIdUseCase _getCurrentChatIdUseCase;
 
   final TextEditingController searchController = TextEditingController();
 
-  SearchCubit(this._searchUsersByEmailUseCase, this._saveAnotherUserIdUseCase)
+  SearchCubit(this._searchUsersByEmailUseCase, this._getCurrentChatIdUseCase,
+      this._saveCurrentChatIdUseCase)
       : super(SearchState(false, []));
 
   onSearchButton() async {
@@ -26,9 +29,10 @@ class SearchCubit extends Cubit<SearchState> {
     }
   }
 
-  onItem(String id) {
-    _saveAnotherUserIdUseCase.execute(id);
-    navigatorKey.currentState?.pushReplacementNamed('/chat'); //Todo add argument(id of chat)
+  onItem(String id) async {
+    final chatId = await _getCurrentChatIdUseCase.execute(id);
+    _saveCurrentChatIdUseCase.execute(chatId);
+    navigatorKey.currentState?.pushReplacementNamed('/chat');
   }
 
   onBackButton() {

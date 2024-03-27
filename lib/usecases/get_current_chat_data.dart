@@ -4,26 +4,25 @@ import 'package:flutter_messenger/domain/message.dart';
 import 'package:injectable/injectable.dart';
 
 @injectable
-class GetCurrentChatDataUseCase {
-  final GetCurrentChatIdUseCase _getCurrentChatId;
+class GetCurrentChatDataStreamUseCase {
   final SharedPreferencesDatasource _prefs;
 
-  GetCurrentChatDataUseCase(this._prefs, this._getCurrentChatId);
+  GetCurrentChatDataStreamUseCase(this._prefs);
 
-  Future<List<Message>> execute() async {
+  Stream<List<Message>> execute() {
     String? chatId = _prefs.currentChatId;
-    chatId ??= await _getCurrentChatId.execute();
 
     if (chatId != null) {
+      if (chatId.isEmpty) {
+        chatId = "${_prefs.userData?.id ?? ''}-${_prefs.anotherUserId ?? ''}";
+      }
       final RealtimeDatabaseDatasource dbDatasource = RealtimeDatabaseDatasource();
-      final chatData = await dbDatasource.getChatData(chatId);
-
-      chatData
-          .sort((a, b) => b.time.millisecondsSinceEpoch.compareTo(a.time.millisecondsSinceEpoch));
-
-      return chatData;
+      return dbDatasource.getChatDataStream(chatId).map((data) {
+        data.sort((a, b) => b.time.millisecondsSinceEpoch.compareTo(a.time.millisecondsSinceEpoch));
+        return data;
+      });
     } else {
-      return [];
+      return const Stream.empty();
     }
   }
 }
@@ -34,19 +33,15 @@ class GetCurrentChatIdUseCase {
 
   GetCurrentChatIdUseCase(this._prefs);
 
-  Future<String?> execute() async {
+  Future<String> execute(String anotherUserId) async {
     final userData = _prefs.userData;
-    final anotherUserId = _prefs.anotherUserId;
 
-    if (userData != null && anotherUserId != null) {
+    if (userData != null) {
       final RealtimeDatabaseDatasource dbDatasource = RealtimeDatabaseDatasource();
       final chatId = await dbDatasource.getChatId(userData.id, anotherUserId);
-      if (chatId != null) {
-        _prefs.saveCurrentChatId(chatId);
-      }
-      return chatId;
+      return chatId ?? '';
     }
 
-    return null;
+    return '';
   }
 }

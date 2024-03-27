@@ -64,6 +64,17 @@ class RealtimeDatabaseDatasource {
     }
   }
 
+  Stream<List<Message>> getChatDataStream(String chatId) {
+    return _database.child("chats/$chatId").onValue.map((event) {
+      List<Message> messages = [];
+      (event.snapshot.value as Map).forEach((key, value) {
+        messages.add(Message(key, value["message"], value["userId"],
+            DateTime.fromMillisecondsSinceEpoch(value["time"])));
+      });
+      return messages;
+    });
+  }
+
   Future<void> sendMessage(String chatId, Message message) async {
     try {
       await _database.child("chats").child(chatId).child(message.id).set({

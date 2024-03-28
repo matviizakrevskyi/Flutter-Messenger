@@ -11,14 +11,14 @@ class RealtimeDatabaseDatasource {
           app: Firebase.app())
       .ref();
 
-  Future<List<User>> searchUsersByEmail(String searchTerm) async {
+  Future<List<User>> searchUsersByEmail(String searchText, String userId) async {
     List<User> users = [];
 
     try {
       DataSnapshot dataSnapshot = await _database.child('users').get();
 
       (dataSnapshot.value as Map).forEach((key, value) {
-        if (value['email'].toString().toLowerCase().contains(searchTerm.toLowerCase())) {
+        if (key != userId && value['email'].toString().toLowerCase().contains(searchText.toLowerCase())) {
           users.add(User(key, value['email'], value['name']));
         }
       });

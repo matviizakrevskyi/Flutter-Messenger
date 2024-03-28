@@ -121,7 +121,7 @@ class RealtimeDatabaseDatasource {
     try {
       DataSnapshot dataSnapshot = await _database.child("users/$userId/userChats").get();
 
-      (dataSnapshot.value as Map).forEach((key, value) async {
+      (dataSnapshot.value as Map).forEach((key, value) {
         final User user = User(value['user']['id'], value['user']['email'], value['user']['name']);
         final Message lastMessage = Message(
             value['lastMessage']['id'],
@@ -131,34 +131,29 @@ class RealtimeDatabaseDatasource {
         chats.add(Chat(key, user, lastMessage));
       });
 
-      //DataSnapshot dataSnapshot = await _database.child('chats').get();
-
-      // (dataSnapshot.value as Map).forEach((key, value) async {
-      //   if ((key as String).split("-").contains(userId)) {
-      //     final anotherUserId = key.replaceAll(userId, "").replaceAll("-", "");
-      //     if (anotherUserId.isNotEmpty) {
-      //       final anotherUserData =
-      //           ((await _database.child('users').child(anotherUserId).get()).value as Map);
-      //       final timeOfLastMessage = (value as Map)
-      //           .values
-      //           .map((e) => e['time'] as int)
-      //           .toList()
-      //           .reduce((value, element) => value > element ? value : element);
-      //       final lastMessage =
-      //           (value.values.firstWhere((element) => element['time'] == timeOfLastMessage) as Map);
-      //       chats.add(Chat(
-      //           key,
-      //           User(anotherUserId, anotherUserData['email'], anotherUserData['name']),
-      //           Message('', lastMessage['message'], lastMessage['userId'],
-      //               DateTime.fromMillisecondsSinceEpoch(lastMessage['time']))));
-      //     }
-      //   }
-      // });
-
       return chats;
     } catch (e) {
       print('Error during getting user chats data: $e');
       return [];
     }
+  }
+
+  Stream<List<Chat>> getUserChatsDataStream(String userId) {
+    return _database.child("users/$userId/userChats").onValue.map((event) {
+      if (event.snapshot.value == null) {
+        return [];
+      }
+      List<Chat> chats = [];
+      (event.snapshot.value as Map).forEach((key, value) {
+        final User user = User(value['user']['id'], value['user']['email'], value['user']['name']);
+        final Message lastMessage = Message(
+            value['lastMessage']['id'],
+            value['lastMessage']['message'],
+            value['lastMessage']['userId'],
+            DateTime.fromMillisecondsSinceEpoch(value['lastMessage']['time']));
+        chats.add(Chat(key, user, lastMessage));
+      });
+      return chats;
+    });
   }
 }

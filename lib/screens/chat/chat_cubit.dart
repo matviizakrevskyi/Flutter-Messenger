@@ -37,8 +37,10 @@ class ChatCubit extends Cubit<ChatState> {
   }
 
   onSendMessege() async {
-    await _sendMessageUseCase.execute(textController.text);
-    textController.text = "";
+    if (textController.text.isNotEmpty) {
+      await _sendMessageUseCase.execute(textController.text);
+      textController.text = "";
+    }
   }
 
   onBackButton() {

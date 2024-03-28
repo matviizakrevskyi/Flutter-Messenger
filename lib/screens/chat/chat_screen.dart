@@ -114,6 +114,7 @@ class _MessageItem extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(4),
           child: Container(
+            constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.7),
             decoration: BoxDecoration(
               color: isYourMessage
                   ? CustomColors.textPrimaryColor.withOpacity(0.05)
@@ -126,20 +127,29 @@ class _MessageItem extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.only(left: 8, right: 8, top: 4, bottom: 4),
               child: Row(
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(
-                    text,
-                    style: CustomTextStyles.main.copyWith(
-                        color: isYourMessage
-                            ? CustomColors.textPrimaryColor
-                            : CustomColors.textWhiteColor),
+                  Flexible(
+                    fit: FlexFit.loose,
+                    child: Text(
+                      text,
+                      style: CustomTextStyles.main.copyWith(
+                          color: isYourMessage
+                              ? CustomColors.textPrimaryColor
+                              : CustomColors.textWhiteColor),
+                    ),
                   ),
                   const SizedBox(
                     width: 4,
                   ),
-                  Text(
-                    time,
-                    style: CustomTextStyles.textSecondary2,
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text(
+                        time,
+                        style: CustomTextStyles.textSecondary2,
+                      ),
+                    ],
                   )
                 ],
               ),

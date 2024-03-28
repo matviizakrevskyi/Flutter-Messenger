@@ -40,7 +40,7 @@ class HomeScreen extends StatelessWidget {
                               userName: item.userData.name,
                               lastMessage: item.lastMessage.text,
                               lastMessageTime: item.lastMessage.time,
-                              onTap: () => cubit.onChat(item.id));
+                              onTap: () => cubit.onChat(item.id, item.userData));
                         })),
             const SizedBox(
               height: 100,

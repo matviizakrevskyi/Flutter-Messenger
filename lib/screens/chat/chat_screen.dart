@@ -14,13 +14,13 @@ class ChatScreen extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(
             backgroundColor: CustomColors.main,
-            title: const Padding(
-              padding: EdgeInsets.only(right: 50),
+            title: Padding(
+              padding: const EdgeInsets.only(right: 50),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "Tester1",
+                    cubit.anotherUser?.name ?? "UserName",
                     style: CustomTextStyles.h4,
                   ),
                 ],

@@ -19,5 +19,10 @@ class SendMessageUseCase {
       chatId = "${_prefs.userData?.id}-${_prefs.anotherUserId}";
     }
     await dbDatasource.sendMessage(chatId, message);
+    final anotherUser = _prefs.anotherUserData;
+    final user = _prefs.userData;
+    if (user != null && anotherUser != null) {
+      await dbDatasource.updateUserChatsData(chatId, message, [user, anotherUser]);
+    }
   }
 }

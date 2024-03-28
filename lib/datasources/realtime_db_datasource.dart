@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter_messenger/domain/chat.dart';
 import 'package:flutter_messenger/domain/message.dart';
 import 'package:flutter_messenger/domain/user.dart';
 
@@ -67,6 +68,9 @@ class RealtimeDatabaseDatasource {
   Stream<List<Message>> getChatDataStream(String chatId) {
     return _database.child("chats/$chatId").onValue.map((event) {
       List<Message> messages = [];
+      if (event.snapshot.value == null) {
+        return [];
+      }
       (event.snapshot.value as Map).forEach((key, value) {
         messages.add(Message(key, value["message"], value["userId"],
             DateTime.fromMillisecondsSinceEpoch(value["time"])));
@@ -84,6 +88,77 @@ class RealtimeDatabaseDatasource {
       });
     } catch (e) {
       print('Error during sending message: $e');
+    }
+  }
+
+  Future<void> updateUserChatsData(String chatId, Message message, List<User> users) async {
+    try {
+      await _database.child("users/${users[0].id}/userChats/$chatId").set({
+        "user": {"id": users[1].id, "name": users[1].name, "email": users[1].email},
+        "lastMessage": {
+          "id": message.id,
+          "message": message.text,
+          "time": message.time.millisecondsSinceEpoch,
+          "userId": message.userId,
+        }
+      });
+      await _database.child("users/${users[1].id}/userChats/$chatId").set({
+        "user": {"id": users[0].id, "name": users[0].name, "email": users[0].email},
+        "lastMessage": {
+          "id": message.id,
+          "message": message.text,
+          "time": message.time.millisecondsSinceEpoch,
+          "userId": message.userId,
+        }
+      });
+    } catch (e) {
+      print('Error during updating users chats data: $e');
+    }
+  }
+
+  Future<List<Chat>> getUserChatsData(String userId) async {
+    List<Chat> chats = [];
+    try {
+      DataSnapshot dataSnapshot = await _database.child("users/$userId/userChats").get();
+
+      (dataSnapshot.value as Map).forEach((key, value) async {
+        final User user = User(value['user']['id'], value['user']['email'], value['user']['name']);
+        final Message lastMessage = Message(
+            value['lastMessage']['id'],
+            value['lastMessage']['message'],
+            value['lastMessage']['userId'],
+            DateTime.fromMillisecondsSinceEpoch(value['lastMessage']['time']));
+        chats.add(Chat(key, user, lastMessage));
+      });
+
+      //DataSnapshot dataSnapshot = await _database.child('chats').get();
+
+      // (dataSnapshot.value as Map).forEach((key, value) async {
+      //   if ((key as String).split("-").contains(userId)) {
+      //     final anotherUserId = key.replaceAll(userId, "").replaceAll("-", "");
+      //     if (anotherUserId.isNotEmpty) {
+      //       final anotherUserData =
+      //           ((await _database.child('users').child(anotherUserId).get()).value as Map);
+      //       final timeOfLastMessage = (value as Map)
+      //           .values
+      //           .map((e) => e['time'] as int)
+      //           .toList()
+      //           .reduce((value, element) => value > element ? value : element);
+      //       final lastMessage =
+      //           (value.values.firstWhere((element) => element['time'] == timeOfLastMessage) as Map);
+      //       chats.add(Chat(
+      //           key,
+      //           User(anotherUserId, anotherUserData['email'], anotherUserData['name']),
+      //           Message('', lastMessage['message'], lastMessage['userId'],
+      //               DateTime.fromMillisecondsSinceEpoch(lastMessage['time']))));
+      //     }
+      //   }
+      // });
+
+      return chats;
+    } catch (e) {
+      print('Error during getting user chats data: $e');
+      return [];
     }
   }
 }

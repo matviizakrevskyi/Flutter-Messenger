@@ -35,6 +35,7 @@ class GetCurrentChatIdUseCase {
 
   Future<String> execute(String anotherUserId) async {
     final userData = _prefs.userData;
+    _prefs.saveAnotherUserId(anotherUserId);
 
     if (userData != null) {
       final RealtimeDatabaseDatasource dbDatasource = RealtimeDatabaseDatasource();

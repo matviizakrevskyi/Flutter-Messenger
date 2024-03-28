@@ -27,6 +27,24 @@ class SharedPreferencesDatasource {
     }
   }
 
+  saveAnotherUser(User user) {
+    _prefs.setString(anotherUserIdKey, user.id);
+    _prefs.setString(anotherUserEmailKey, user.email);
+    _prefs.setString(anotherUserNameKey, user.name);
+  }
+
+  User? get anotherUserData {
+    final id = _prefs.getString(anotherUserIdKey);
+    final email = _prefs.getString(anotherUserEmailKey);
+    final name = _prefs.getString(anotherUserNameKey);
+
+    if (id != null && email != null && name != null) {
+      return User(id, email, name);
+    } else {
+      return null;
+    }
+  }
+
   saveAnotherUserId(String id) {
     _prefs.setString(anotherUserIdKey, id);
   }

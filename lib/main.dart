@@ -6,8 +6,8 @@ import 'package:flutter_messenger/screens/auth/auth_cubit.dart';
 import 'package:flutter_messenger/screens/auth/auth_screen.dart';
 import 'package:flutter_messenger/screens/chat/chat_cubit.dart';
 import 'package:flutter_messenger/screens/chat/chat_screen.dart';
-import 'package:flutter_messenger/screens/home/home_cubit.dart';
-import 'package:flutter_messenger/screens/home/home_screen.dart';
+import 'package:flutter_messenger/screens/home_cover/home_cover_cubit.dart';
+import 'package:flutter_messenger/screens/home_cover/home_cover_screen.dart';
 import 'package:flutter_messenger/screens/search/search_cubit.dart';
 import 'package:flutter_messenger/screens/search/search_screen.dart';
 import 'package:flutter_messenger/styling/styling.dart';
@@ -35,9 +35,9 @@ class MyApp extends StatelessWidget {
               create: (BuildContext context) => getIt.get(),
               child: AuthScreen(),
             ),
-        '/home': (context) => BlocProvider<HomeCubit>(
+        '/home': (context) => BlocProvider<HomeCoverCubit>(
               create: (BuildContext context) => getIt.get(),
-              child: HomeScreen(),
+              child: const HomeCoverScreen(),
             ),
         '/search': (context) => BlocProvider<SearchCubit>(
               create: (BuildContext context) => getIt.get(),

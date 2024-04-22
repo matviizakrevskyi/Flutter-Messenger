@@ -71,6 +71,13 @@ abstract class CustomTextStyles {
       letterSpacing: 0,
       color: CustomColors.placeholder);
 
+  static const textSecondary3 = TextStyle(
+      fontFamily: 'Raleway',
+      fontSize: 12,
+      fontWeight: FontWeight.w500,
+      letterSpacing: 0,
+      color: CustomColors.textPrimaryColor);
+
   static const mainWhite = TextStyle(
       fontFamily: 'Raleway',
       fontSize: 16,
@@ -95,6 +102,8 @@ abstract class CustomTextStyles {
 
 abstract class CustomColors {
   static const main = Color(0xFFF9F9F9);
+
+  static const secondary = Color.fromARGB(255, 232, 232, 232);
 
   static const colorSheme = ColorScheme.light(background: main);
 

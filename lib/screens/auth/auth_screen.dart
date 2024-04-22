@@ -6,6 +6,8 @@ import 'package:flutter_messenger/screens/widgets/custom_text_field.dart';
 import 'package:flutter_messenger/styling/styling.dart';
 
 class AuthScreen extends StatelessWidget {
+  const AuthScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<AuthCubit>();
@@ -96,7 +98,7 @@ class AuthScreen extends StatelessWidget {
                           height: 40,
                           decoration: const BoxDecoration(
                               color: CustomColors.textPrimaryColor,
-                              borderRadius: const BorderRadius.all(Radius.circular(20))),
+                              borderRadius: BorderRadius.all(Radius.circular(20))),
                           child: InkWell(
                             customBorder:
                                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),

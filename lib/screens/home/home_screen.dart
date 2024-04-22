@@ -5,6 +5,8 @@ import 'package:flutter_messenger/screens/widgets/chat_preview_widget.dart';
 import 'package:flutter_messenger/styling/styling.dart';
 
 class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<HomeCubit>();
@@ -57,7 +59,7 @@ class _AppBar extends StatelessWidget {
   final VoidCallback onSearch;
   final VoidCallback onLogOut;
 
-  _AppBar({required this.title, required this.onSearch, required this.onLogOut});
+  const _AppBar({required this.title, required this.onSearch, required this.onLogOut});
 
   @override
   Widget build(BuildContext context) {

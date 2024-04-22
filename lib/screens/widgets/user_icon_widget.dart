@@ -5,12 +5,12 @@ class UserIcon extends StatelessWidget {
   final VoidCallback onTap;
   final String name;
 
-  UserIcon({required this.onTap, required this.name});
+  const UserIcon({super.key, required this.onTap, required this.name});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      borderRadius: BorderRadius.all(Radius.circular(20)),
+      borderRadius: const BorderRadius.all(Radius.circular(20)),
       onTap: onTap,
       child: Container(
         width: 40,

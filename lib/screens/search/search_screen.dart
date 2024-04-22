@@ -6,6 +6,8 @@ import 'package:flutter_messenger/screens/widgets/search_user_item.dart';
 import 'package:flutter_messenger/styling/styling.dart';
 
 class SearchScreen extends StatelessWidget {
+  const SearchScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<SearchCubit>();
@@ -52,7 +54,7 @@ class SearchScreen extends StatelessWidget {
                       )
                     : Expanded(
                         child: ListView.builder(
-                            padding: EdgeInsets.only(top: 8),
+                            padding: const EdgeInsets.only(top: 8),
                             itemCount: state.users.length,
                             itemBuilder: (context, index) {
                               final item = state.users[index];

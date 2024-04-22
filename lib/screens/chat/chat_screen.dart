@@ -49,6 +49,14 @@ class ChatScreen extends StatelessWidget {
                         item.text, item.userId == cubit.user?.id, item.time.toHMFormat);
                   }),
             ),
+            const SizedBox(
+              height: 8,
+            ),
+            Divider(
+              height: 1,
+              thickness: 1.5,
+              color: Colors.grey.withOpacity(0.3),
+            ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 8),
               child: ChatTextField(

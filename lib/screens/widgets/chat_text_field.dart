@@ -47,7 +47,7 @@ class _ChatTextFieldState extends State<ChatTextField> {
                   decoration: const InputDecoration(
                     hintStyle: CustomTextStyles.placeholder,
                     hintText: "",
-                    contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                    contentPadding: EdgeInsets.only(top: 0, bottom: 14, left: 16, right: 16),
                     border: InputBorder.none,
                   ),
                 ),

@@ -18,7 +18,8 @@ class RealtimeDatabaseDatasource {
       DataSnapshot dataSnapshot = await _database.child('users').get();
 
       (dataSnapshot.value as Map).forEach((key, value) {
-        if (key != userId && value['email'].toString().toLowerCase().contains(searchText.toLowerCase())) {
+        if (key != userId &&
+            value['email'].toString().toLowerCase().contains(searchText.toLowerCase())) {
           users.add(User(key, value['email'], value['name']));
         }
       });
@@ -154,6 +155,17 @@ class RealtimeDatabaseDatasource {
         chats.add(Chat(key, user, lastMessage));
       });
       return chats;
+    });
+  }
+
+  Stream<User?> getUserDataStream(String userId) {
+    return _database.child("users/$userId").onValue.map((event) {
+      final value = event.snapshot.value;
+      if (value != null) {
+        return User(userId, (value as Map)['email'], value['name']);
+      } else {
+        return null;
+      }
     });
   }
 }

@@ -38,7 +38,7 @@ class HomeScreen extends StatelessWidget {
                         itemBuilder: (context, index) {
                           final item = state.chats[index];
                           return ChatPreviewWidget(
-                              userName: item.userData.name,
+                              user: item.userData,
                               lastMessage: item.lastMessage.text,
                               lastMessageTime: item.lastMessage.time,
                               onTap: () => cubit.onChat(item.id, item.userData));

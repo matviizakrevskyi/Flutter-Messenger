@@ -20,7 +20,12 @@ class ChatScreen extends StatelessWidget {
             actions: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: UserIcon(onTap: () {}, name: cubit.anotherUser?.name[0] ?? 'U'),
+                child: UserIcon(
+                  onTap: () {},
+                  name: cubit.anotherUser?.name[0] ?? 'U',
+                  avatarColor: cubit.anotherUser?.avatarColor ?? CustomColors.defaoultAvatarColor,
+                  size: const Size(40, 40),
+                ),
               )
             ],
             title: Row(

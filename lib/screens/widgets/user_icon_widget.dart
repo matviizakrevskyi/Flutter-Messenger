@@ -4,21 +4,28 @@ import 'package:flutter_messenger/styling/styling.dart';
 class UserIcon extends StatelessWidget {
   final VoidCallback onTap;
   final String name;
+  final Color avatarColor;
+  final Size size;
 
-  const UserIcon({super.key, required this.onTap, required this.name});
+  const UserIcon(
+      {super.key,
+      required this.onTap,
+      required this.name,
+      required this.avatarColor,
+      required this.size});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      borderRadius: const BorderRadius.all(Radius.circular(20)),
+      borderRadius: BorderRadius.all(Radius.circular(size.width / 2)),
       onTap: onTap,
       child: Container(
-        width: 40,
-        height: 40,
+        width: size.width,
+        height: size.height,
         decoration: BoxDecoration(
-          color: Colors.blue.withOpacity(0.5),
+          color: avatarColor,
           border: Border.all(color: CustomColors.placeholder),
-          borderRadius: const BorderRadius.all(Radius.circular(20)),
+          borderRadius: BorderRadius.all(Radius.circular(size.width / 2)),
         ),
         child: Center(
           child: Text(

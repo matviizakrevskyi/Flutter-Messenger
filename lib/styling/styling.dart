@@ -113,7 +113,7 @@ abstract class CustomColors {
   static const textWhiteColor = Colors.white;
   static const placeholder = Color(0xFFBFBFBF);
 
-  static const avatarColor = Color(0xFF98817B);
+  static const defaoultAvatarColor = Color(0xFF98817B);
 
   static const avatarColors = [
     Color(0xFF7C0902),

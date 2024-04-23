@@ -71,7 +71,7 @@ class MyInfoScreen extends StatelessWidget {
                           cubit.toDefaultStage();
                         },
                         onChange: () {
-                          cubit.changeProfileData();
+                          cubit.changeUserData();
                         },
                         nameController: cubit.nameController,
                       ),

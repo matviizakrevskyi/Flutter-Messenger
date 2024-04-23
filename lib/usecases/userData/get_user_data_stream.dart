@@ -14,7 +14,8 @@ class GetUserDataStreamUseCase {
 
     if (userId != null) {
       final RealtimeDatabaseDatasource dbDatasource = RealtimeDatabaseDatasource();
-      return dbDatasource.getUserDataStream(userId);
+      final user = dbDatasource.getUserDataStream(userId);
+      return user;
     } else {
       return const Stream.empty();
     }

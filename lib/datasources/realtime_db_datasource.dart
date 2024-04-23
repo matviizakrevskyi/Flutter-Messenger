@@ -155,41 +155,41 @@ class RealtimeDatabaseDatasource {
 
   //Todo: Check later how it work
   Stream<List<Chat>> getUserChatsDataStream(String userId) async* {
-  await for (var event in _database.child("users/$userId/userChats").onValue) {
-    if (event.snapshot.value == null) {
-      yield [];
-    } else {
-      List<Chat> chats = [];
-      await Future.forEach((event.snapshot.value as Map).entries, (entry) async {
-        final key = entry.key;
-        final value = entry.value;
+    await for (var event in _database.child("users/$userId/userChats").onValue) {
+      if (event.snapshot.value == null) {
+        yield [];
+      } else {
+        List<Chat> chats = [];
+        await Future.forEach((event.snapshot.value as Map).entries, (entry) async {
+          final key = entry.key;
+          final value = entry.value;
 
-        // Getting data of chat user
-        final String anotherUserId = value['user']['id'];
-        final userData = (await _database.child("users/$anotherUserId/userData").get()).value as Map;
-        final User user = User(
-          anotherUserId,
-          userData["email"],
-          userData["name"],
-          Color(userData["avatarColor"]),
-        );
+          // Getting data of chat user
+          final String anotherUserId = value['user']['id'];
+          final userData =
+              (await _database.child("users/$anotherUserId/userData").get()).value as Map;
+          final User user = User(
+            anotherUserId,
+            userData["email"],
+            userData["name"],
+            Color(userData["avatarColor"]),
+          );
 
-        // Getting data of last message of chat
-        final Message lastMessage = Message(
-          value['lastMessage']['id'],
-          value['lastMessage']['message'],
-          value['lastMessage']['userId'],
-          DateTime.fromMillisecondsSinceEpoch(value['lastMessage']['time']),
-        );
+          // Getting data of last message of chat
+          final Message lastMessage = Message(
+            value['lastMessage']['id'],
+            value['lastMessage']['message'],
+            value['lastMessage']['userId'],
+            DateTime.fromMillisecondsSinceEpoch(value['lastMessage']['time']),
+          );
 
-        // Adding chat to chats
-        chats.add(Chat(key, user, lastMessage));
-      });
-      yield chats;
+          // Adding chat to chats
+          chats.add(Chat(key, user, lastMessage));
+        });
+        yield chats;
+      }
     }
   }
-}
-
 
   Stream<User?> getUserDataStream(String userId) {
     return _database.child("users/$userId/userData").onValue.map((event) {
@@ -200,5 +200,13 @@ class RealtimeDatabaseDatasource {
         return null;
       }
     });
+  }
+
+  Future<void> changeUserData(User user) async {
+    await _database
+        .child("users")
+        .child(user.id)
+        .child("userData")
+        .set({"email": user.email, "name": user.name, "avatarColor": user.avatarColor.value});
   }
 }

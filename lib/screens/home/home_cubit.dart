@@ -4,9 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_messenger/domain/chat.dart';
 import 'package:flutter_messenger/domain/user.dart';
 import 'package:flutter_messenger/main.dart';
-import 'package:flutter_messenger/usecases/get_user_chats_data_stream.dart';
-import 'package:flutter_messenger/usecases/save_another_user_data.dart';
-import 'package:flutter_messenger/usecases/save_current_chat_id.dart';
+import 'package:flutter_messenger/usecases/userData/get_user_chats_data_stream.dart';
+import 'package:flutter_messenger/usecases/userData/save_another_user_data.dart';
+import 'package:flutter_messenger/usecases/chats/save_current_chat_id.dart';
 import 'package:injectable/injectable.dart';
 
 part 'home_state.dart';

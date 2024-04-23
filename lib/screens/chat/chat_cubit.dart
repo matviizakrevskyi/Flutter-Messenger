@@ -5,10 +5,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_messenger/domain/message.dart';
 import 'package:flutter_messenger/domain/user.dart';
 import 'package:flutter_messenger/main.dart';
-import 'package:flutter_messenger/usecases/get_another_user_data.dart';
-import 'package:flutter_messenger/usecases/get_current_chat_data.dart';
-import 'package:flutter_messenger/usecases/get_user_data.dart';
-import 'package:flutter_messenger/usecases/send_message.dart';
+import 'package:flutter_messenger/usecases/userData/get_another_user_data.dart';
+import 'package:flutter_messenger/usecases/chats/get_current_chat_data.dart';
+import 'package:flutter_messenger/usecases/userData/get_user_data.dart';
+import 'package:flutter_messenger/usecases/chats/send_message.dart';
 import 'package:injectable/injectable.dart';
 
 part 'chat_state.dart';

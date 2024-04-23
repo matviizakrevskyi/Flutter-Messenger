@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_messenger/domain/extentions/str_email_ext.dart';
 import 'package:flutter_messenger/main.dart';
-import 'package:flutter_messenger/usecases/check_auth_status.dart';
-import 'package:flutter_messenger/usecases/sign_in.dart';
-import 'package:flutter_messenger/usecases/sign_up.dart';
+import 'package:flutter_messenger/usecases/auth/check_auth_status.dart';
+import 'package:flutter_messenger/usecases/auth/sign_in.dart';
+import 'package:flutter_messenger/usecases/auth/sign_up.dart';
 import 'package:injectable/injectable.dart';
 
 part 'auth_state.dart';

@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_messenger/main.dart';
 import 'package:flutter_messenger/screens/my_info/my_info_state.dart';
-import 'package:flutter_messenger/usecases/get_user_data_stream.dart';
-import 'package:flutter_messenger/usecases/log_out.dart';
+import 'package:flutter_messenger/usecases/userData/get_user_data_stream.dart';
+import 'package:flutter_messenger/usecases/auth/log_out.dart';
 import 'package:injectable/injectable.dart';
 
 @injectable

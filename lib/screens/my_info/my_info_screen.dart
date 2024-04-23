@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_messenger/screens/my_info/my_info_cubit.dart';
 import 'package:flutter_messenger/screens/my_info/my_info_state.dart';
+import 'package:flutter_messenger/screens/widgets/custom_button.dart';
+import 'package:flutter_messenger/screens/widgets/custom_text_field.dart';
 import 'package:flutter_messenger/styling/styling.dart';
 
 class MyInfoScreen extends StatelessWidget {
@@ -52,17 +54,27 @@ class MyInfoScreen extends StatelessWidget {
               const SizedBox(
                 height: 48,
               ),
-              CustomBigButton(
-                onTap: () {cubit.changeProfileData();},
-                name: "Change profile data",
-              ),
-              const SizedBox(
-                height: 24,
-              ),
-              CustomBigButton(
-                onTap: () {},
-                name: "Delete account",
-                customTextStyle: CustomTextStyles.main.copyWith(color: Colors.red),
+              AnimatedOpacity(
+                opacity: state.animationOpacity,
+                duration: Duration(milliseconds: state.animationOpacity == 0 ? 0 : 200),
+                child: state.stage == MyInfoStage.defaultStage
+                    ? _DefaultPartWidget(
+                        onChangeProfileButton: () {
+                          cubit.toChangingData();
+                        },
+                        onLogOutAccountButton: () {
+                          cubit.logOut();
+                        },
+                      )
+                    : _EditingPartWidget(
+                        onBack: () {
+                          cubit.toDefaultStage();
+                        },
+                        onChange: () {
+                          cubit.changeProfileData();
+                        },
+                        nameController: cubit.nameController,
+                      ),
               ),
             ],
           ),
@@ -72,36 +84,109 @@ class MyInfoScreen extends StatelessWidget {
   }
 }
 
-class CustomBigButton extends StatelessWidget {
-  final String name;
-  final VoidCallback onTap;
-  final TextStyle? customTextStyle;
+class _DefaultPartWidget extends StatelessWidget {
+  final VoidCallback onChangeProfileButton;
+  final VoidCallback onLogOutAccountButton;
 
-  const CustomBigButton({super.key, required this.name, required this.onTap, this.customTextStyle});
+  const _DefaultPartWidget(
+      {required this.onChangeProfileButton, required this.onLogOutAccountButton});
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      child: Container(
-        width: MediaQuery.of(context).size.width - 32,
-        height: 40,
-        decoration: BoxDecoration(
-          border: Border.all(color: CustomColors.textPrimaryColor, width: 2),
-          borderRadius: const BorderRadius.all(Radius.circular(8)),
+    return Column(
+      children: [
+        CustomBigButton(
+          onTap: onChangeProfileButton,
+          child: const Row(
+            children: [
+              SizedBox(
+                width: 16,
+              ),
+              Text(
+                "Change profile data",
+                style: CustomTextStyles.main,
+              )
+            ],
+          ),
         ),
-        child: Row(
+        const SizedBox(
+          height: 24,
+        ),
+        CustomBigButton(
+          onTap: onLogOutAccountButton,
+          child: Row(
+            children: [
+              const SizedBox(
+                width: 16,
+              ),
+              Text(
+                "Log Out",
+                style: CustomTextStyles.main.copyWith(color: Colors.red),
+              )
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _EditingPartWidget extends StatelessWidget {
+  final VoidCallback onBack;
+  final VoidCallback onChange;
+  final TextEditingController nameController;
+
+  const _EditingPartWidget(
+      {required this.onBack, required this.onChange, required this.nameController});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            const SizedBox(
-              width: 16,
-            ),
-            Text(
-              name,
-              style: customTextStyle ?? CustomTextStyles.main,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              child: InkWell(
+                onTap: onBack,
+                borderRadius: const BorderRadius.all(Radius.circular(6)),
+                child: const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  child: Text(
+                    "Back",
+                    style: CustomTextStyles.main,
+                  ),
+                ),
+              ),
             )
           ],
         ),
-      ),
+        const SizedBox(
+          height: 16,
+        ),
+        CustomTextField(
+          controller: nameController,
+          hintText: 'Enter your name',
+        ),
+        const SizedBox(
+          height: 32,
+        ),
+        CustomBigButton(
+          onTap: onChange,
+          child: const Row(
+            children: [
+              SizedBox(
+                width: 16,
+              ),
+              Text(
+                "Change data",
+                style: CustomTextStyles.main,
+              )
+            ],
+          ),
+        )
+      ],
     );
   }
 }

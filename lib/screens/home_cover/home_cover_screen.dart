@@ -24,7 +24,7 @@ class HomeCoverScreen extends StatelessWidget {
             cubit.onInfo();
           }),
           body: SizedBox(
-            height: MediaQuery.of(context).size.height * 0.9,
+            height: MediaQuery.of(context).size.height,
             child: state.stage == HomeStage.home
                 ? BlocProvider<HomeCubit>(
                     create: (BuildContext context) => getIt.get(),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_messenger/screens/auth/auth_cubit.dart';
-import 'package:flutter_messenger/screens/auth/auth_enum.dart';
 import 'package:flutter_messenger/screens/widgets/custom_text_field.dart';
 import 'package:flutter_messenger/styling/styling.dart';
 

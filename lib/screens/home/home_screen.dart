@@ -15,7 +15,6 @@ class HomeScreen extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: CustomColors.main,
           title: _AppBar(
-            onLogOut: () => cubit.logOut(),
             onSearch: () => cubit.onSearchButton(),
             title: 'Chats',
           ),
@@ -57,9 +56,8 @@ class HomeScreen extends StatelessWidget {
 class _AppBar extends StatelessWidget {
   final String title;
   final VoidCallback onSearch;
-  final VoidCallback onLogOut;
 
-  const _AppBar({required this.title, required this.onSearch, required this.onLogOut});
+  const _AppBar({required this.title, required this.onSearch});
 
   @override
   Widget build(BuildContext context) {
@@ -68,21 +66,15 @@ class _AppBar extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          TextButton(
-              onPressed: onLogOut,
-              child: const Text(
-                "Log Out",
-                style: CustomTextStyles.errorButton,
-              )),
+          const SizedBox(
+            width: 44,
+          ),
           Row(
             children: [
               Text(
                 title,
                 style: CustomTextStyles.h4,
               ),
-              const SizedBox(
-                width: 40,
-              )
             ],
           ),
           Ink(

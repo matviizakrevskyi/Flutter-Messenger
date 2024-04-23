@@ -19,6 +19,7 @@ class AuthDatasource {
       await _database
           .child("users")
           .child(user.user?.uid ?? '')
+          .child("userData")
           .set({"email": user.user?.email, "name": name});
 
       return user.user?.uid;
@@ -44,7 +45,7 @@ class AuthDatasource {
 
   Future<String> getNameOfUser(String uid) async {
     try {
-      final userData = await _database.child('users/$uid').get();
+      final userData = await _database.child('users/$uid/userData').get();
       return (userData.value as Map<dynamic, dynamic>)['name'];
     } catch (e) {
       throw Exception('Error at getNameOfUser: $e');

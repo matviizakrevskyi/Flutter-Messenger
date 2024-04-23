@@ -19,8 +19,8 @@ class RealtimeDatabaseDatasource {
 
       (dataSnapshot.value as Map).forEach((key, value) {
         if (key != userId &&
-            value['email'].toString().toLowerCase().contains(searchText.toLowerCase())) {
-          users.add(User(key, value['email'], value['name']));
+            value['userData']['email'].toString().toLowerCase().contains(searchText.toLowerCase())) {
+          users.add(User(key, value['userData']['email'], value['userData']['name']));
         }
       });
 
@@ -159,7 +159,7 @@ class RealtimeDatabaseDatasource {
   }
 
   Stream<User?> getUserDataStream(String userId) {
-    return _database.child("users/$userId").onValue.map((event) {
+    return _database.child("users/$userId/userData").onValue.map((event) {
       final value = event.snapshot.value;
       if (value != null) {
         return User(userId, (value as Map)['email'], value['name']);

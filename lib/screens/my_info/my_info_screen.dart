@@ -27,7 +27,7 @@ class MyInfoScreen extends StatelessWidget {
                     width: 100,
                     height: 100,
                     decoration: BoxDecoration(
-                      color: Colors.blue.withOpacity(0.5),
+                      color: state.user != null ? state.user!.avatarColor : CustomColors.main,
                       border: Border.all(color: CustomColors.placeholder),
                       borderRadius: const BorderRadius.all(Radius.circular(50)),
                     ),

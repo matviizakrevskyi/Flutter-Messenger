@@ -1,6 +1,9 @@
+import 'dart:ui';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter_messenger/domain/user.dart' as domain;
 
 class AuthDatasource {
   final DatabaseReference _database = FirebaseDatabase.instanceFor(
@@ -11,7 +14,7 @@ class AuthDatasource {
 
   AuthDatasource();
 
-  Future<String?> signUp(String email, String password, String name) async {
+  Future<String?> signUp(String email, String password, String name, int avatarColor) async {
     try {
       final user = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
@@ -20,7 +23,7 @@ class AuthDatasource {
           .child("users")
           .child(user.user?.uid ?? '')
           .child("userData")
-          .set({"email": user.user?.email, "name": name});
+          .set({"email": user.user?.email, "name": name, "avatarColor": avatarColor});
 
       return user.user?.uid;
     } catch (e) {
@@ -43,10 +46,15 @@ class AuthDatasource {
     await FirebaseAuth.instance.signOut();
   }
 
-  Future<String> getNameOfUser(String uid) async {
+  Future<domain.User?> getUserData(String uid) async {
     try {
-      final userData = await _database.child('users/$uid/userData').get();
-      return (userData.value as Map<dynamic, dynamic>)['name'];
+      final userData = (await _database.child('users/$uid/userData').get()).value;
+      if(userData != null) {
+        return domain.User(
+            uid, (userData as Map)['email'], userData['name'], Color(userData['avatarColor']));
+      } else {
+        return null;
+      }
     } catch (e) {
       throw Exception('Error at getNameOfUser: $e');
     }

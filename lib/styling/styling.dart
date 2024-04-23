@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 abstract class CustomTextStyles {
@@ -110,4 +112,29 @@ abstract class CustomColors {
   static const textPrimaryColor = Color(0xFF211814);
   static const textWhiteColor = Colors.white;
   static const placeholder = Color(0xFFBFBFBF);
+
+  static const avatarColor = Color(0xFF98817B);
+
+  static const avatarColors = [
+    Color(0xFF7C0902),
+    Color(0xFFFB607F),
+    Color(0xFF00B9E8),
+    Color(0xFF003262),
+    Color(0xFF66FF00),
+    Color(0xFF1B4D3E),
+    Color(0xFF00FFFF),
+    Color(0xFF98817B),
+  ];
+
+  static Color get randomAvatarColor {
+    final random = Random();
+    final randomIndex = random.nextInt(avatarColors.length);
+    return avatarColors[randomIndex];
+  }
+
+  static int get randomAvatarColorValue {
+    final random = Random();
+    final randomIndex = random.nextInt(avatarColors.length);
+    return avatarColors[randomIndex].value;
+  }
 }

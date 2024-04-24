@@ -59,8 +59,7 @@ class SearchScreen extends StatelessWidget {
                             itemBuilder: (context, index) {
                               final item = state.users[index];
                               return SearchUserItem(
-                                userName: item.name,
-                                userEmail: item.email,
+                                user: item,
                                 onTap: () => cubit.onItem(item),
                               );
                             }),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_messenger/styling/styling.dart';
 
 class UserIcon extends StatelessWidget {
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
   final String name;
   final Color avatarColor;
   final Size size;

@@ -25,11 +25,14 @@ class ChatPreviewWidget extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Row(
           children: [
-            UserIcon(
-              onTap: () {},
-              name: user.name[0],
-              avatarColor: user.avatarColor,
-              size: const Size(60, 60),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 6),
+              child: UserIcon(
+                onTap: null,
+                name: user.name[0],
+                avatarColor: user.avatarColor,
+                size: const Size(54, 54),
+              ),
             ),
             const SizedBox(
               width: 8,

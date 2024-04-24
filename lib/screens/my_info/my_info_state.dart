@@ -1,17 +1,31 @@
 import 'package:flutter_messenger/domain/user.dart';
 
 class MyInfoState {
+  final bool isLoading;
   final User? user;
   final MyInfoStage stage;
   final double animationOpacity;
-  final String nameErrorText;
+  final bool isEditingButtonActive;
+  final int selectedColorIndex;
 
-  MyInfoState(this.user, this.stage, this.animationOpacity, this.nameErrorText);
+  MyInfoState(this.isLoading, this.user, this.stage, this.animationOpacity,
+      this.isEditingButtonActive, this.selectedColorIndex);
 
   MyInfoState copyWith(
-          {User? user, MyInfoStage? stage, double? animationOpacity, String? nameErrorText}) =>
-      MyInfoState(user ?? this.user, stage ?? this.stage, animationOpacity ?? this.animationOpacity,
-          nameErrorText ?? this.nameErrorText);
+          {bool? isLoading,
+          User? user,
+          MyInfoStage? stage,
+          double? animationOpacity,
+          String? nameErrorText,
+          bool? isEditingButtonActive,
+          int? selectedColorIndex}) =>
+      MyInfoState(
+          isLoading ?? this.isLoading,
+          user ?? this.user,
+          stage ?? this.stage,
+          animationOpacity ?? this.animationOpacity,
+          isEditingButtonActive ?? this.isEditingButtonActive,
+          selectedColorIndex ?? this.selectedColorIndex);
 }
 
 enum MyInfoStage { defaultStage, editing }

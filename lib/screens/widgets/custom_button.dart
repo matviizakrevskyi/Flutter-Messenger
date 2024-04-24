@@ -12,7 +12,7 @@ class CustomBigButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onTap,
+      onTap: isActive ? onTap : null,
       child: Container(
           width: MediaQuery.of(context).size.width - 32,
           height: 40,

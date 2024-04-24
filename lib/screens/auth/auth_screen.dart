@@ -14,6 +14,7 @@ class AuthScreen extends StatelessWidget {
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
+            automaticallyImplyLeading: false,
             backgroundColor: CustomColors.main,
             title: const Center(
               child: Text(

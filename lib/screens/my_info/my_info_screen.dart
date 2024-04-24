@@ -5,6 +5,7 @@ import 'package:flutter_messenger/screens/my_info/my_info_state.dart';
 import 'package:flutter_messenger/screens/widgets/colors_list_widget.dart';
 import 'package:flutter_messenger/screens/widgets/custom_button.dart';
 import 'package:flutter_messenger/screens/widgets/custom_text_field.dart';
+import 'package:flutter_messenger/screens/widgets/logout_popup_widget.dart';
 import 'package:flutter_messenger/styling/styling.dart';
 
 class MyInfoScreen extends StatelessWidget {
@@ -74,8 +75,11 @@ class MyInfoScreen extends StatelessWidget {
                                 onChangeProfileButton: () {
                                   cubit.toChangingData();
                                 },
-                                onLogOutAccountButton: () {
-                                  cubit.logOut();
+                                onPopupCancel: () {
+                                  cubit.popupCancel();
+                                },
+                                onPopupConfirm: () {
+                                  cubit.logOutConfirm();
                                 },
                               )
                             : _EditingPartWidget(
@@ -104,10 +108,13 @@ class MyInfoScreen extends StatelessWidget {
 
 class _DefaultPartWidget extends StatelessWidget {
   final VoidCallback onChangeProfileButton;
-  final VoidCallback onLogOutAccountButton;
+  final VoidCallback onPopupCancel;
+  final VoidCallback onPopupConfirm;
 
   const _DefaultPartWidget(
-      {required this.onChangeProfileButton, required this.onLogOutAccountButton});
+      {required this.onChangeProfileButton,
+      required this.onPopupCancel,
+      required this.onPopupConfirm});
 
   @override
   Widget build(BuildContext context) {
@@ -131,7 +138,15 @@ class _DefaultPartWidget extends StatelessWidget {
           height: 24,
         ),
         CustomBigButton(
-          onTap: onLogOutAccountButton,
+          onTap: () {
+            showDialog(
+              context: context,
+              builder: (context) => LogOutPopupWidget(
+                onCancel: onPopupCancel,
+                onConfirm: onPopupConfirm,
+              ),
+            );
+          },
           child: Row(
             children: [
               const SizedBox(

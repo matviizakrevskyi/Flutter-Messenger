@@ -13,6 +13,7 @@ class HomeScreen extends StatelessWidget {
     return BlocBuilder<HomeCubit, HomeState>(builder: (BuildContext context, state) {
       return Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           backgroundColor: CustomColors.main,
           title: _AppBar(
             onSearch: () => cubit.onSearchButton(),

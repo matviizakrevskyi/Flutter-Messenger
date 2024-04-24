@@ -53,9 +53,12 @@ class MyInfoCubit extends Cubit<MyInfoState> {
     });
   }
 
-  logOut() async {
-    await _logOutUseCase.execute();
+  popupCancel() {
+    navigatorKey.currentState?.pop();
+  }
 
+  logOutConfirm() async {
+    await _logOutUseCase.execute();
     navigatorKey.currentState?.pushReplacementNamed("/");
   }
   //
